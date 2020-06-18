@@ -1,0 +1,30 @@
+.SellerAddress {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    max-width: 300px;
+    margin: auto;
+    text-align: center;
+    padding-bottom: 20px;
+  }
+
+  .SellerAddress img{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 300px;
+    margin: auto;
+    text-align: center;
+    height: auto;
+  }
+
+  .SellerAddress h3{
+    padding: 20px;
+    margin: auto;
+    text-align: center;
+    color: slateblue;
+  }
+
+  @media (min-width: 600px) {
+    .SellerAddress {
+      width: 500px;
+    }
+  }
+  

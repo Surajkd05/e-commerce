@@ -1,0 +1,112 @@
+import React, { useState } from "react";
+import classes from "./UserView.module.css";
+import Button from "../UI/Button/Button";
+import axios from "axios";
+import Spinner from "../UI/Spinner/Spinner";
+import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table";
+import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
+
+const CustomerView = (props) => {
+  console.log("Props in list is", props);
+  const [loading, setLoading] = useState(false);
+
+  const activateUserHandler = (userId) => {
+    setLoading(true);
+    console.log("UserId received is ; ", userId);
+
+    axios({
+      method: "PATCH",
+      url: "http://localhost:8080/ecommerce/admin/activateCustomer/" + userId,
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    })
+      .then((response) => {
+        setLoading(false);
+        alert(response.data);
+        console.log(response);
+      })
+      .catch((error) => {
+        setLoading(false);
+        alert(error.response.data.message);
+        console.log("Error is", error.response.data.message);
+      });
+  };
+
+  const deActivateUserHandler = (userId) => {
+    setLoading(true);
+    console.log("UserId received is ; ", userId);
+    axios({
+      method: "PATCH",
+      url: "http://localhost:8080/ecommerce/admin/deActivateCustomer/" + userId,
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    })
+      .then((response) => {
+        setLoading(false);
+        alert(response.data);
+        console.log(response);
+      })
+      .catch((error) => {
+        setLoading(false);
+        alert(error.response.data.message);
+        console.log("Error is", error);
+      });
+  };
+
+  if (loading) {
+    return <Spinner />;
+  }
+
+  return (
+    <section className={classes.UserView}>
+      <h4>Fetched Users</h4>
+      <Table>
+        <Thead>
+          <Tr>
+            <Th>S.No</Th>
+            <Th>User Id</Th>
+            <Th>First Name</Th>
+            <Th>Last Name</Th>
+            <Th>Email</Th>
+            <Th>Active</Th>
+            <Th>Activate</Th>
+            <Th>DeActivate</Th>
+          </Tr>
+        </Thead>
+        <Tbody>
+          {props.fetchedUsers.map((user, count) => (
+            <Tr key={user.id}>
+              <Td key={user.id}>{count + 1}</Td>
+
+              <Td>{user.id}</Td>
+              <Td>{user.firstName}</Td>
+              <Td>{user.lastName}</Td>
+              <Td>{user.email}</Td>
+              <Td>{String(user.active)}</Td>
+              <Td>
+                <Button
+                  clicked={() => activateUserHandler(user.id)}
+                  btnType="Success"
+                >
+                  Activate
+                </Button>
+              </Td>
+              <Td>
+                <Button
+                  clicked={() => deActivateUserHandler(user.id)}
+                  btnType="Danger"
+                >
+                  DeActivate
+                </Button>
+              </Td>
+            </Tr>
+          ))}
+        </Tbody>
+      </Table>
+    </section>
+  );
+};
+
+export default CustomerView;

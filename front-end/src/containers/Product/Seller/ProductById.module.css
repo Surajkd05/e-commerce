@@ -1,0 +1,22 @@
+.ProductById {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    max-width: 300px;
+    margin: auto;
+    text-align: center;
+    padding-bottom: 20px;
+  }
+
+  .ProductById h3{
+    padding: 20px;
+    margin: auto;
+    text-align: center;
+    color: slateblue;
+  }
+
+
+  @media (min-width: 600px) {
+    .ProductById {
+      width: 500px;
+    }
+  }
+  
